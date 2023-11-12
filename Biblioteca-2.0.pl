@@ -26,7 +26,6 @@ tema("Don quijote", comedia).
 prestamo("Ana Maria", "El principito").
 prestamo("Ana Maria", "Romeo y julieta").
 
-
 %reglas
 
 %Mostrar prestamos actuales
@@ -144,3 +143,6 @@ procesar_opcion(5) :-
     read(_).
 procesar_opcion(0) :-
     write('Saliendo del menú.'), nl.
+
+
+:- menu().

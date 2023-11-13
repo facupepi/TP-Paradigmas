@@ -143,6 +143,3 @@ procesar_opcion(5) :-
     read(_).
 procesar_opcion(0) :-
     write('Saliendo del menú.'), nl.
-
-
-:- menu().

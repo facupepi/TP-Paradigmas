@@ -13,7 +13,7 @@ libro("El principito", "Gustov pulisqui").
 libro("Romeo y julieta", "Puluszi Zostroski").
 libro("Don quijote", "Prestikov Slok").
 
-%Temas
+%Temas en libros
 tema("El principito", aventura).
 tema("Romeo y julieta", romance).
 tema("Romeo y julieta", tragedia).
@@ -32,6 +32,10 @@ prestamo("Ana Maria", "Romeo y julieta").
 librosEnPrestamo(Libro):-
     prestamo(_,Libro), libro(Libro,_).
 
+%Mostrar prestamos actuales
+librosDisponibles(Libro):-
+    libro(Libro,_), \+ prestamo(_,Libro).
+
 %Mostrar Usuarios con prestamo
 usuariosConPrestamos(Usuario,Libro):-
     usuario(Usuario,_), prestamo(Usuario,Libro).
@@ -43,6 +47,8 @@ librosPorTema(Tema, Libro):-
 %Filtrar libros por autor
 librosPorAutor(Autor,Libro):-
     autor(Autor), libro(Libro,Autor). 
+
+
 
 
 
@@ -59,6 +65,12 @@ libros_en_prestamo:-
     format('Libro: ~w',[Libro]),nl,
     fail.
 libros_en_prestamo.
+
+libros_disponibles:-
+    librosDisponibles(Libro),
+    format('Libro: ~w',[Libro]),nl,
+    fail.
+libros_disponibles.
 
 usuarios_con_prestamo(Usuario):-
     usuariosConPrestamos(Usuario, Libro),
@@ -78,17 +90,29 @@ filtrar_por_autor(Autor):-
     fail.
 filtrar_por_autor(_).
 
+mostrar_temas:-
+    tema(_,Tema), 
+    format('Temas: ~w', [Tema]),nl,
+    fail.
+mostrar_temas.
+
+autores_libros:-
+    autor(Autor),
+    format('Autor: ~w',[Autor]),nl,
+    fail.
+autores_libros.
 
 %:- menu_principal.
 menu :-
     repeat,
     write("----------------------------------------------------"),nl,
     write('1- Mostrar Usuarios'), nl,
-    write('3- Mostrar Autores'), nl,
-    write('4- Mostrar temas'), nl,
-    write('5- Consultar usuarios con prestamos'), nl,
-    write('6- Consultar coleccion por tema'), nl,
-    write('7- Consultar coleccion por Autor'), nl,
+    write('2- Mostrar Autores'), nl,
+    write('3- Mostrar temas'), nl,
+    write('4- Consultar usuarios con prestamos'), nl,
+    write('5- Consultar coleccion por tema'), nl,
+    write('6- Consultar coleccion por Autor'), nl,
+    write('7- Consultar libros en prestamo'), nl,
     write('8- Consultar libros no prestamos'), nl,
     write('0- Salir'), nl,
     write("----------------------------------------------------"),nl,
@@ -104,15 +128,21 @@ procesar_opcion(1) :-
     write("----------------------------------------------------"),nl,
     write("Pulse una tecla para continuar"),
     read(_).
-%Mostrar prestamos actuales
 procesar_opcion(2) :-
     write("----------------------------------------------------"),nl,
-    libros_en_prestamo, nl,
+    autores_libros,nl,
     write("----------------------------------------------------"),nl,
     write("Pulse una tecla para continuar"),
     read(_).
-%Consultar por prestamos
+%Mostrar temas
 procesar_opcion(3) :-
+    write("----------------------------------------------------"),nl,
+    mostrar_temas,nl,
+    write("----------------------------------------------------"),nl,
+    write("Pulse una tecla para continuar"),
+    read(_).
+%Consultar por usuarios en prestamo
+procesar_opcion(4) :-
     write("----------------------------------------------------"),nl,
     write("Ingrese el usuario entre comillas para una consulta concreta, sino ingrese X"),
     read(Usuario),nl,
@@ -121,7 +151,7 @@ procesar_opcion(3) :-
     write("Pulse una tecla para continuar"),
     read(_).
 %Consultar libros por tema
-procesar_opcion(4) :-
+procesar_opcion(5) :-
     write("----------------------------------------------------"),nl,
     write("Ingrese un tema, para ver la coleccion de libros"),
     read(Tema),nl,
@@ -130,7 +160,7 @@ procesar_opcion(4) :-
     write("Pulse una tecla para continuar"),
     read(_).
 %Consultar libros por autor
-procesar_opcion(5) :-
+procesar_opcion(6) :-
     write("----------------------------------------------------"),nl,
     write("Ingrese un Autor entre comillas, para ver sus obras"),
     read(Autor),nl,
@@ -138,7 +168,20 @@ procesar_opcion(5) :-
     write("----------------------------------------------------"),nl,
     write("Pulse una tecla para continuar"),
     read(_).
+%Mostrar libros prestamo
+procesar_opcion(7) :-
+    write("----------------------------------------------------"),nl,
+    libros_en_prestamo, nl,
+    write("----------------------------------------------------"),nl,
+    write("Pulse una tecla para continuar"),
+    read(_).
+%Mostrar libros no prestamos
+procesar_opcion(8) :-
+    write("----------------------------------------------------"),nl,
+    libros_disponibles, nl,
+    write("----------------------------------------------------"),nl,
+    write("Pulse una tecla para continuar"),
+    read(_).
 procesar_opcion(0) :-
     write('Saliendo del menú.'), nl.
 
-:- menu().

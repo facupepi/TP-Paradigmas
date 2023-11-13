@@ -79,20 +79,17 @@ filtrar_por_autor(Autor):-
 filtrar_por_autor(_).
 
 
-
-
-
-
-
 %:- menu_principal.
 menu :-
     repeat,
     write("----------------------------------------------------"),nl,
     write('1- Mostrar Usuarios'), nl,
-    write('2- Mostrar libros en prestamo'), nl,
-    write('3- Consultar usuarios con prestamos'), nl,
-    write('4- Consultar coleccion por tema'), nl,
-    write('5- Consultar coleccion por Autor'), nl,
+    write('3- Mostrar Autores'), nl,
+    write('4- Mostrar temas'), nl,
+    write('5- Consultar usuarios con prestamos'), nl,
+    write('6- Consultar coleccion por tema'), nl,
+    write('7- Consultar coleccion por Autor'), nl,
+    write('8- Consultar libros no prestamos'), nl,
     write('0- Salir'), nl,
     write("----------------------------------------------------"),nl,
     write('Ingrese su eleccion: '),
@@ -143,3 +140,5 @@ procesar_opcion(5) :-
     read(_).
 procesar_opcion(0) :-
     write('Saliendo del menú.'), nl.
+
+:- menu().

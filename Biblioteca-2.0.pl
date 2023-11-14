@@ -112,7 +112,7 @@ temas_libros.
 %:- menu_principal.
 menu :-
     repeat,
-    write("----------------------------------------------------"),nl,
+    write("-----------------------MENU-------------------------"),nl,
     write('1- Mostrar Usuarios'), nl,
     write('2- Mostrar Autores'), nl,
     write('3- Mostrar temas'), nl,
@@ -126,7 +126,10 @@ menu :-
     write('Ingrese su eleccion: '),
     read(Opcion),nl,
     procesar_opcion(Opcion),
+    (Opcion = 8; Opcion = 0),
     Opcion == 0, !.
+
+    
 
 %Mostrar usuarios
 procesar_opcion(1) :-
@@ -191,5 +194,9 @@ procesar_opcion(8) :-
     read(_).
 procesar_opcion(0) :-
     write('Saliendo del menú.'), nl.
+procesar_opcion(_) :- 
+    write("Opcion no valida, por favor vuelva a intetarlo"),nl.
+
+?- menu().
 
 

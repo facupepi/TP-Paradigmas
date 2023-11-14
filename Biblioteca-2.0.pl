@@ -13,6 +13,12 @@ libro("El principito", "Gustov pulisqui").
 libro("Romeo y julieta", "Puluszi Zostroski").
 libro("Don quijote", "Prestikov Slok").
 
+%Generos
+genero(aventura).
+genero(romance).
+genero(tragedia).
+genero(drama).
+
 %Temas en libros
 tema("El principito", aventura).
 tema("Romeo y julieta", romance).
@@ -47,7 +53,6 @@ librosPorTema(Tema, Libro):-
 %Filtrar libros por autor
 librosPorAutor(Autor,Libro):-
     autor(Autor), libro(Libro,Autor). 
-
 
 
 
@@ -90,17 +95,19 @@ filtrar_por_autor(Autor):-
     fail.
 filtrar_por_autor(_).
 
-mostrar_temas:-
-    tema(_,Tema), 
-    format('Temas: ~w', [Tema]),nl,
-    fail.
-mostrar_temas.
 
 autores_libros:-
     autor(Autor),
     format('Autor: ~w',[Autor]),nl,
     fail.
 autores_libros.
+
+temas_libros:-
+    genero(Tema),
+    format('Tema: ~w',[Tema]),nl,
+    fail.
+temas_libros.
+
 
 %:- menu_principal.
 menu :-
@@ -137,7 +144,7 @@ procesar_opcion(2) :-
 %Mostrar temas
 procesar_opcion(3) :-
     write("----------------------------------------------------"),nl,
-    mostrar_temas,nl,
+    temas_libros,nl,
     write("----------------------------------------------------"),nl,
     write("Pulse una tecla para continuar"),
     read(_).
@@ -184,4 +191,5 @@ procesar_opcion(8) :-
     read(_).
 procesar_opcion(0) :-
     write('Saliendo del menú.'), nl.
+
 
